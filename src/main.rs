@@ -1,5 +1,3 @@
-use calculator::*;
-
 fn main() {
     /*
         TODO ✅
@@ -11,4 +9,6 @@ fn main() {
         6. Power
         7. Square Root
     */
+
+    calculator::start();
 }
