@@ -5,14 +5,14 @@ pub fn start() -> String {
     loop {
 
         print!("Continue? (yes): ");
-        if is_close() {
+        if stop() {
             continue;
         }
         break "Thank You".to_owned();
     }
 }
 
-fn is_close() -> bool {
+fn stop() -> bool {
     
     let mut close = String::new();
     let stdin = io::stdin();
