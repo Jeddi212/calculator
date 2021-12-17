@@ -10,5 +10,5 @@ fn main() {
         7. Square Root
     */
 
-    calculator::start();
+    println!("\n\n{}", calculator::start());
 }
