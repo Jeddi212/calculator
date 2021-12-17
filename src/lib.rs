@@ -4,11 +4,13 @@ use std::io;
 
 pub fn start() -> String {
 
+    let mut result_number = 0_f64;
     let mut input = String::new();
     let stdin = io::stdin();
 
     loop {
 
+        // choose Operand
         print_operand();
         
         input.clear();
@@ -16,8 +18,35 @@ pub fn start() -> String {
 
         input = input.trim().to_lowercase();
 
+        // do Calculate
+        if input == "1" || 
+            input == "2" || 
+            input == "3" || 
+            input == "4" || 
+            input == "5" || 
+            input == "6" 
+        {
+
+            result_number = operand::calculate(&input);
+            println!("Result : {}\n", &result_number);
+
+        } 
+        else 
+        {
+            
+            println!("Please input the operand order!");
+
+        }
+
+        // re-use Calculator?
+        println!("Continue (yes) ?");
+        
+        input.clear();
+        stdin.read_line(&mut input).expect("error read input");
+
+        input = input.trim().to_lowercase();
+
         if stop(&input) {
-            operand::calculate();
             continue;
         }
         break "Thank You".to_owned();
@@ -26,17 +55,16 @@ pub fn start() -> String {
 
 fn print_operand() {
 
-    println!("
-Please input The Operand : 
-1. Addition (+)
-2. Substracting (-)
-3. Product (*)
-4. Division (/)
-5. Modulus (%)
-6. Power (^)
-7. Square Root (√)
-8. Exit
-");
+    println!(r#"
+        Please input The Operand : 
+        1. Addition (+)
+        2. Substracting (-)
+        3. Product (*)
+        4. Division (/)
+        5. Modulus (%)
+        6. Power (^)
+        7. Exit
+    "#);
 
 }
 

@@ -1,3 +1,4 @@
+use core::panic;
 use std::io;
 
 struct Operand {
@@ -6,41 +7,36 @@ struct Operand {
 }
 
 impl Operand {
-    fn addition(&self, num1: f64, num2: f64) -> f64 {
-        num1 + num2
+    fn addition(&self) -> f64 {
+        self.num1 + self.num2
     }
     
-    fn substraction(&self, num1: f64, num2: f64) -> f64 {
-        num1 - num2
+    fn substraction(&self) -> f64 {
+        self.num1 - self.num2
     }
     
-    fn product(&self, num1: f64, num2: f64) -> f64 {
-        num1 * num2
+    fn product(&self) -> f64 {
+        self.num1 * self.num2
     }
     
-    fn division(&self, num1: f64, num2: f64) -> f64 {
-        num1 / num2
+    fn division(&self) -> f64 {
+        self.num1 / self.num2
     }
     
-    fn modulus(&self, num1: f64, num2: f64) -> f64 {
-        num1 % num2
+    fn modulus(&self) -> f64 {
+        self.num1 % self.num2
     }
     
-    fn power(&self, num1: f64, num2: f64) -> f64 {
-        num1.powf(num2)
+    fn power(&self) -> f64 {
+        self.num1.powf(self.num2)
     }
     
-    fn squro(&self, num1: f64) -> f64 {
-        num1.sqrt()
-    }
 }
 
-pub fn calculate() -> () {
-    
-    let result_number: f64;
+pub fn calculate(op: &str) -> f64 {
+
     let mut num1 = String::new();
     let mut num2 = String::new();
-    let mut op = String::new();
     let stdin = io::stdin();
 
     println!("Num 1 : ");
@@ -48,9 +44,19 @@ pub fn calculate() -> () {
 
     println!("Num 2 : ");
     stdin.read_line(&mut num2).expect("error read input");
+    
+    let kalkulasi = Operand { 
+        num1: num1.to_string().trim().parse::<f64>().expect("The input should a number"),
+        num2: num2.to_string().trim().parse::<f64>().expect("The input should a number"),
+    };
 
-    let num1: f64 = num1.to_string().trim().parse().expect("The input should a number");
-
-    let num2: f64 = num2.to_string().trim().parse().expect("The input should a number");
-
+    match op {
+        "1" => { kalkulasi.addition() },
+        "2" => { kalkulasi.substraction() },
+        "3" => { kalkulasi.product() },
+        "4" => { kalkulasi.division() },
+        "5" => { kalkulasi.modulus() },
+        "6" => { kalkulasi.power() },
+        _ => panic!("No Operand"),
+    }
 }
