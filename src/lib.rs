@@ -1,3 +1,5 @@
+mod operand;
+
 use std::io;
 
 pub fn start() -> String {
@@ -15,6 +17,7 @@ pub fn start() -> String {
         input = input.trim().to_lowercase();
 
         if stop(&input) {
+            operand::calculate();
             continue;
         }
         break "Thank You".to_owned();
@@ -38,8 +41,6 @@ Please input The Operand :
 }
 
 fn stop(input: &str) -> bool {
-
-    assert_eq!("yes", input);
 
     match input {
         "yes" => true,
