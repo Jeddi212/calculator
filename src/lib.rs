@@ -4,7 +4,7 @@ use std::io;
 
 pub fn start() -> String {
 
-    let mut result_number = 0_f64;
+    let mut result_number :f64;
     let mut input = String::new();
     let stdin = io::stdin();
 
