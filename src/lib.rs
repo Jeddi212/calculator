@@ -13,8 +13,6 @@ pub fn start() -> String {
         // choose Operand
         print_operand();
         
-        // input.clear();
-        // stdin.read_line(&mut input).expect("error read input");
         read(&mut input);
 
         input = input.trim().into();
