@@ -4,7 +4,8 @@ use std::io;
 
 pub fn start() -> String {
 
-    let mut result_number :f64;
+    let mut result_number = 0_f64;
+    let mut user_choose = 2_i8;
     let mut input = String::new();
     let stdin = io::stdin();
 
@@ -27,7 +28,11 @@ pub fn start() -> String {
             input == "6" 
         {
 
-            result_number = operand::calculate(&input);
+            match user_choose {
+                1 => result_number = operand::calculate_1(&input, result_number),
+                2 => result_number = operand::calculate_2(&input),
+                _ => println!("Is you choose the right number option ?")
+            }
             println!("Result : {}\n", &result_number);
 
         } 
@@ -39,18 +44,23 @@ pub fn start() -> String {
         }
 
         // re-use Calculator?
-        println!("Continue (yes) ?");
+        println!("Continue ?
+    1. Use last result
+    2. Reset
+    3. Quit");
         
         input.clear();
         stdin.read_line(&mut input).expect("error read input");
 
         input = input.trim().to_lowercase();
 
-        if stop(&input) {
-            continue;
-        }
+        if keep_going(&input, &mut user_choose) {
+            continue
+        } 
         break "Thank You".to_owned();
     }
+
+    
 }
 
 fn print_operand() {
@@ -68,11 +78,21 @@ fn print_operand() {
 
 }
 
-fn stop(input: &str) -> bool {
+fn keep_going(input: &str, user_choose: &mut i8) -> bool {
 
     match input {
-        "yes" => true,
-        _ => false,
+        "1" => {
+            *user_choose = 1;
+            true
+        },
+        "2" => {
+            *user_choose = 2;
+            true
+        },
+        _ => {
+            *user_choose = 3;
+            false
+        },
     }
 
 }
