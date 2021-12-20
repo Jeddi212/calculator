@@ -1,23 +1,23 @@
 mod operand;
 
-use std::io;
+use std::io::{stdin, stdout, Write};
 
 pub fn start() -> String {
 
     let mut result_number = 0_f64;
     let mut user_choose = 2_i8;
     let mut input = String::new();
-    let stdin = io::stdin();
 
     loop {
 
         // choose Operand
         print_operand();
         
-        input.clear();
-        stdin.read_line(&mut input).expect("error read input");
+        // input.clear();
+        // stdin.read_line(&mut input).expect("error read input");
+        read(&mut input);
 
-        input = input.trim().to_lowercase();
+        input = input.trim().into();
 
         // do Calculate
         if input == "1" || 
@@ -39,7 +39,7 @@ pub fn start() -> String {
         else 
         {
             
-            println!("Please input the operand order!");
+            println!("Wish to exit ?");
 
         }
 
@@ -49,15 +49,14 @@ pub fn start() -> String {
     2. Reset
     3. Quit");
         
-        input.clear();
-        stdin.read_line(&mut input).expect("error read input");
+        read(&mut input);
 
-        input = input.trim().to_lowercase();
+        input = input.trim().into();
 
         if keep_going(&input, &mut user_choose) {
             continue
         } 
-        break "Thank You".to_owned();
+        break "Thank You\n".to_owned();
     }
 
     
@@ -65,7 +64,7 @@ pub fn start() -> String {
 
 fn print_operand() {
 
-    println!(r#"
+    print!(r#"
         Please input The Operand : 
         1. Addition (+)
         2. Substracting (-)
@@ -74,7 +73,7 @@ fn print_operand() {
         5. Modulus (%)
         6. Power (^)
         7. Exit
-    "#);
+        -> "#);
 
 }
 
@@ -95,4 +94,10 @@ fn keep_going(input: &str, user_choose: &mut i8) -> bool {
         },
     }
 
+}
+
+fn read(input: &mut String) {
+    input.clear();
+    stdout().flush().expect("Failed to flush!");
+    stdin().read_line(input).expect("Failed to read input!");
 }
